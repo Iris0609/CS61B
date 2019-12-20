@@ -95,14 +95,14 @@ public class LinkedListDequeTest {
 		printTestStatus(passed);
 
 	}
-
-	public static void main(String[] args) {
-//		LinkedListDeque L  = new LinkedListDeque();
-//		boolean expected = true;
-//		boolean actual = L.isEmpty();
-//		checkEmpty(expected,actual);
-		System.out.println("Running tests.\n");
-		addIsEmptySizeTest();
-		addRemoveTest();
-	}
+//
+//	public static void main(String[] args) {
+////		LinkedListDeque L  = new LinkedListDeque();
+////		boolean expected = true;
+////		boolean actual = L.isEmpty();
+////		checkEmpty(expected,actual);
+//		System.out.println("Running tests.\n");
+//		addIsEmptySizeTest();
+//		addRemoveTest();
+//	}
 } 
