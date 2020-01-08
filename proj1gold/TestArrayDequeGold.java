@@ -19,23 +19,17 @@ public class TestArrayDequeGold {
 
 
 
-            if (rand < 0.25) {
-                sad.addFirst(randint);
-                ads.addFirst(randint);
-                correct = ads.get(0);
-                incorrect = sad.get(0);
-                message += "addFirst(" + randint +") \n";
-            } else if (rand <0.5) {
+            if (rand <0.25) {
                 sad.addLast(randint);
                 ads.addLast(randint);
-                correct = ads.get(s);
-                incorrect = sad.get(s);
+                correct = ads.get(ads.size() - 1);
+                incorrect = sad.get(ads.size() - 1);
                 message += "addLast(" + randint +") \n";
-            } else if (rand < 0.75 && s > 0) {
+            } else if (rand < 0.5 && s > 0) {
                 incorrect = sad.removeFirst();
                 correct = ads.removeFirst();
                 message += "removeFirst() \n";
-            } else if (rand < 1 && s > 0) {
+            } else if (rand < 0.75 && s > 0) {
                 incorrect = sad.removeLast();
                 correct = ads.removeLast();
                 message += "removeLast() \n";
