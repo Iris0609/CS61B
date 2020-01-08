@@ -17,10 +17,19 @@ public class TestPalindrome {
     }
 
     @Test
-    public void testisPalindrome(){
+    public void testisPalindrome() {
         assertTrue(palindrome.isPalindrome("aaa"));
         assertTrue(palindrome.isPalindrome("aba"));
         assertFalse(palindrome.isPalindrome("flake"));
+
+        CharacterComparator cc1 = new OffByOne();
+        assertTrue(palindrome.isPalindrome("flake", cc1));
+        assertFalse(palindrome.isPalindrome("aaa", cc1));
+        CharacterComparator cc5 = new OffByN(5);
+        assertTrue(palindrome.isPalindrome("upsup", cc5));
+        assertFalse(palindrome.isPalindrome("aaa", cc5));
+
+
+        //Uncomment this class once you've created your Palindrome class.
     }
-    //Uncomment this class once you've created your Palindrome class.
 }
