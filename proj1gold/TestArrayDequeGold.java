@@ -15,15 +15,15 @@ public class TestArrayDequeGold {
             double rand = StdRandom.uniform();
             int randint = StdRandom.uniform(100);
             int s = ads.size();
-            Integer correct, incorrect;
-
+            Integer correct = 0;
+            Integer incorrect = 0;
 
 
             if (rand <0.25) {
                 sad.addLast(randint);
                 ads.addLast(randint);
-                correct = ads.get(ads.size() - 1);
-                incorrect = sad.get(ads.size() - 1);
+//                correct = ads.get(ads.size() - 1);
+//                incorrect = sad.get(ads.size() - 1);
                 message += "addLast(" + randint +") \n";
             } else if (rand < 0.5 && s > 0) {
                 incorrect = sad.removeFirst();
@@ -36,8 +36,8 @@ public class TestArrayDequeGold {
             } else {
                 sad.addFirst(randint);
                 ads.addFirst(randint);
-                correct = ads.get(0);
-                incorrect = sad.get(0);
+//                correct = ads.get(0);
+//                incorrect = sad.get(0);
                 message += "addFirst(" + randint +") \n";
             }
 
