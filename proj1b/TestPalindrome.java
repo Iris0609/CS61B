@@ -18,9 +18,9 @@ public class TestPalindrome {
 
     @Test
     public void testisPalindrome(){
-        assertFalse(palindrome.isPalindrome("aaa"));
-        assertFalse(palindrome.isPalindrome("aba"));
-        assertTrue(palindrome.isPalindrome("flake"));
+        assertTrue(palindrome.isPalindrome("aaa"));
+        assertTrue(palindrome.isPalindrome("aba"));
+        assertFalse(palindrome.isPalindrome("flake"));
     }
     //Uncomment this class once you've created your Palindrome class.
 }
