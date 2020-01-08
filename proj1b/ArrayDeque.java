@@ -1,13 +1,11 @@
 
-
-public class ArrayDeque<T> {
+public class ArrayDeque<T> implements Deque<T> {
     //public T[] a = (T[]) new Object[1000];
     private T[] arr;
     private int size;
     private int nextFirst, nextLast;
-    private static final int R_Factor = 2;
-    private static final double minRatio = 0.25;
-
+    private static final int R_FACTOR = 2;
+    private static final double MINRATIO = 0.25;
 
     public ArrayDeque() {
         arr = (T[]) new Object[8];
@@ -16,14 +14,14 @@ public class ArrayDeque<T> {
         nextLast = 5;
     }
 
-    private int minusOne(int index){
-        if (index - 1 <0) {
+    private int minusOne(int index) {
+        if (index - 1 < 0) {
             return arr.length - 1;
         }
         return index - 1;
     }
 
-    private int plusOne(int index){
+    private int plusOne(int index) {
         if (index + 1 >= arr.length) {
             return 0;
         }
@@ -33,7 +31,7 @@ public class ArrayDeque<T> {
     private void resize(int capacity) {
         T[] newArr = (T[]) new Object[capacity];
         int current = plusOne(nextFirst);
-        for (int i = 0; i < size; i++){
+        for (int i = 0; i < size; i++) {
             newArr[i] = arr[current];
             current = plusOne(current);
         }
@@ -43,10 +41,10 @@ public class ArrayDeque<T> {
 
     }
 
-
+    @Override
     public void addFirst(T item) {
         if (size == arr.length) {
-            resize(size * R_Factor);
+            resize(size * R_FACTOR);
         }
 
         arr[nextFirst] = item;
@@ -54,34 +52,34 @@ public class ArrayDeque<T> {
         size += 1;
     }
 
-
+    @Override
     public void addLast(T item) {
         if (size == arr.length) {
-            resize(size * R_Factor);
+            resize(size * R_FACTOR);
         }
 
         arr[nextLast] = item;
         nextLast = plusOne(nextLast);
         size += 1;
     }
-
+    @Override
     public boolean isEmpty() {
         return (size == 0);
     }
-
-    public int size(){
+    @Override
+    public int size() {
         return size;
     }
 
     public void printDeque() {
         int current = plusOne(nextFirst);
-        while (current!=nextLast) {
+        while (current != nextLast) {
             System.out.print(arr[current]);
             System.out.print(' ');
             current = plusOne(current);
         }
     }
-
+    @Override
     public T removeFirst() {
         if (size == 0) {
             return null;
@@ -92,13 +90,13 @@ public class ArrayDeque<T> {
         nextFirst = first;
         size -= 1;
 
-        if (arr.length >= 16 && size <= arr.length * minRatio) {
-            resize(arr.length / R_Factor);
+        if (arr.length >= 16 && size <= arr.length * MINRATIO) {
+            resize(arr.length / R_FACTOR);
         }
         return item;
 
     }
-
+    @Override
     public T removeLast() {
         if (size == 0) {
             return null;
@@ -108,12 +106,12 @@ public class ArrayDeque<T> {
         arr[last] = null;
         nextLast = last;
         size -= 1;
-        if (arr.length >= 16 && size <= arr.length * minRatio) {
-            resize(arr.length / R_Factor);
+        if (arr.length >= 16 && size <= arr.length * MINRATIO) {
+            resize(arr.length / R_FACTOR);
         }
         return item;
     }
-
+    @Override
     public T get(int index) {
         if (index >= size) {
             return null;
