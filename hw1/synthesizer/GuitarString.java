@@ -15,7 +15,7 @@ public class GuitarString {
 
     /* Buffer for storing sound data. */
     private BoundedQueue<Double> buffer;
-    private double first;
+
 
     /* Create a guitar string of the given frequency.  */
     public GuitarString(double frequency) {
@@ -55,9 +55,9 @@ public class GuitarString {
         // TODO: Dequeue the front sample and enqueue a new sample that is
         //       the average of the two multiplied by the DECAY factor.
         //       Do not call StdAudio.play().
-        first = buffer.dequeue();
+        double first = buffer.dequeue();
         double second = buffer.peek();
-        double next = DECAY * 0.5 *(first + second);
+        double next = DECAY * (first + second) / 2.0;
         buffer.enqueue(next);
 
     }
@@ -65,6 +65,6 @@ public class GuitarString {
     /* Return the double at the front of the buffer. */
     public double sample() {
         // TODO: Return the correct thing.
-        return first;
+        return buffer.peek();
     }
 }
