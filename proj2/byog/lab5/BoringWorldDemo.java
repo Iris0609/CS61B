@@ -16,6 +16,8 @@ public class BoringWorldDemo {
         TERenderer ter = new TERenderer();
         ter.initialize(WIDTH, HEIGHT);
 
+
+
         // initialize tiles
         TETile[][] world = new TETile[WIDTH][HEIGHT];
         for (int x = 0; x < WIDTH; x += 1) {

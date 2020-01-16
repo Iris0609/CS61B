@@ -6,8 +6,18 @@ import byog.TileEngine.TETile;
 public class Game {
     TERenderer ter = new TERenderer();
     /* Feel free to change the width and height. */
-    public static final int WIDTH = 80;
-    public static final int HEIGHT = 30;
+    public static final int WIDTH = 120;
+    public static final int HEIGHT = 60;
+    public World W;
+
+    public void displayWorld(){
+        TETile[][] world = null;
+        W = new World(WIDTH, HEIGHT, 1);
+        world = W.generateWorld();
+        ter.initialize(WIDTH, HEIGHT);
+
+        ter.renderFrame(world);
+    }
 
     /**
      * Method used for playing a fresh game. The game should start from the main menu.
@@ -33,6 +43,7 @@ public class Game {
         // drawn if the same inputs had been given to playWithKeyboard().
 
         TETile[][] finalWorldFrame = null;
+
         return finalWorldFrame;
     }
 }
