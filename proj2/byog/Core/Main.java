@@ -8,19 +8,20 @@ import byog.TileEngine.TETile;
  */
 public class Main {
     public static void main(String[] args) {
+        /** for personal testing
         Game game = new Game();
         game.displayWorld();
+    }*/
+        if (args.length > 1) {
+            System.out.println("Can only have one argument - the input string");
+            System.exit(0);
+        } else if (args.length == 1) {
+            Game game = new Game();
+            TETile[][] worldState = game.playWithInputString(args[0]);
+            System.out.println(TETile.toString(worldState));
+        } else {
+            Game game = new Game();
+            game.playWithKeyboard();
+        }
     }
-//        if (args.length > 1) {
-//            System.out.println("Can only have one argument - the input string");
-//            System.exit(0);
-//        } else if (args.length == 1) {
-//            Game game = new Game();
-//            TETile[][] worldState = game.playWithInputString(args[0]);
-//            System.out.println(TETile.toString(worldState));
-//        } else {
-//            Game game = new Game();
-//            game.playWithKeyboard();
-//        }
-//    }
 }

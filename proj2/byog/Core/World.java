@@ -2,10 +2,11 @@ package byog.Core;
 import byog.TileEngine.TETile;
 import byog.TileEngine.Tileset;
 
+import java.io.Serializable;
 import java.lang.reflect.Array;
 import java.util.*;
 
-public class World {
+public class World implements Serializable{
     private final static int MINSIZE = 5;
     private int minWidth;
     private int minHeight;
@@ -15,7 +16,7 @@ public class World {
     private Queue<BSPNode> leaves;
 
 
-    public class BSPNode{
+    public class BSPNode implements Serializable{
         int startx;
         int starty;
         int endx;
@@ -40,7 +41,7 @@ public class World {
         }
     }
 
-    public class Room{
+    public class Room implements Serializable{
         int left;
         int right;
         int top;
@@ -276,7 +277,10 @@ public class World {
         }
 
 
+    }
 
+    public TETile[][] getWorld(){
+        return this.world;
     }
 
     public TETile[][] generateWorld(){
@@ -286,6 +290,5 @@ public class World {
 
         return world;
     }
-
 
 }
