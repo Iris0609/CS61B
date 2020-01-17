@@ -13,7 +13,10 @@ public class World implements Serializable{
     private BSPNode root;
     private Random RANDOM;
     private TETile[][] world;
-    private Queue<BSPNode> leaves;
+    private LinkedList<BSPNode> leaves;
+    private Player player;
+    private int winx;
+    private int winy;
 
 
     public class BSPNode implements Serializable{
@@ -122,7 +125,7 @@ public class World implements Serializable{
         // stop split the node if any node.width or node.height < MINSIZE
         while (minWidth > MINSIZE && minHeight > MINSIZE) {
             // save the new leaves after split
-            Queue<BSPNode> temp = new LinkedList<>();
+            LinkedList<BSPNode> temp = new LinkedList<>();
             // BFS split node
             while (leaves.size() != 0) {
                 BSPNode node = leaves.poll();
@@ -263,21 +266,49 @@ public class World implements Serializable{
 
 
     private void generateHall(){
-        //Queue<BSPNode> temp = new LinkedList<>();
-        while (leaves.size() > 1){
-            BSPNode left = leaves.poll();
-            BSPNode right = leaves.poll();
+        LinkedList<BSPNode> temp = new LinkedList<>(leaves);
+
+        while (temp.size() > 1){
+            BSPNode left = temp.poll();
+            BSPNode right = temp.poll();
             if(left.parent != right.parent) {
                 throw new RuntimeException("There is something wrong with the bsp tree construction");
 
             }
-            leaves.add(left.parent);
+            temp.add(left.parent);
             createHall(left, right);
 
         }
 
 
     }
+
+    private int[] initPlayer(){
+        int[] pos = new int[2];
+        int roomno = RANDOM.nextInt(leaves.size());
+        Room room = leaves.get(roomno).room;
+        int x = room.left + 1 + RANDOM.nextInt(room.right - room.left - 1);
+        int y = room.bottom + 1 + RANDOM.nextInt(room.top - room.bottom - 1);
+        pos[0] = x;
+        pos[1] = y;
+
+        return pos;
+    }
+
+    public void generatePlayer(){
+        int[] pos = initPlayer();
+        player = new Player(pos[0], pos[1], world);
+        world[pos[0]][pos[1]] = player.mark;
+    }
+
+    public void generateDoor(){
+        int roomno = RANDOM.nextInt(leaves.size());
+        Room room = leaves.get(roomno).room;
+        winx = room.left + 1 + RANDOM.nextInt(room.right - room.left - 1);
+        winy = room.bottom + 1 + RANDOM.nextInt(room.top - room.bottom - 1);
+        world[winx][winy] = Tileset.LOCKED_DOOR;
+    }
+
 
     public TETile[][] getWorld(){
         return this.world;
@@ -287,6 +318,8 @@ public class World implements Serializable{
         BSPSplit();
         generateRoom();
         generateHall();
+        generatePlayer();
+        generateDoor();
 
         return world;
     }
