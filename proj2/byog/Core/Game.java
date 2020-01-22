@@ -2,6 +2,7 @@ package byog.Core;
 
 import byog.TileEngine.TERenderer;
 import byog.TileEngine.TETile;
+import byog.TileEngine.Tileset;
 
 import java.util.Stack;
 
@@ -11,9 +12,11 @@ public class Game {
     public static final int WIDTH = 120;
     public static final int HEIGHT = 60;
     private World world;
+    private Player player;
 
 
     public Game(){
+
 
     }
 
@@ -68,12 +71,13 @@ public class Game {
             }
             int Seed = Integer.parseInt(seed);
             world = new World(WIDTH, HEIGHT, Seed);
-            finalWorldFrame = world.generateWorld();
+            world.generateWorld();
+            player = world.getPlayer();
         } else if (lcInput.charAt(0) == 'l') {
             p = 1;
             CurrentState cs = new CurrentState();
             world = cs.loading();
-            finalWorldFrame = world.getWorld();
+            player = world.getPlayer();
         }
 
         while (p < input.length()) {
@@ -83,11 +87,15 @@ public class Game {
                 CurrentState cs = new CurrentState();
                 cs.save(world);
                 //close game
+                break;
             }
             //take action
+            /** this part of logic needs to be modified for player status update in the worldclass*/
+            player.Move(action);
             p += 1;
         }
-
+        world.updatePlayer();
+        finalWorldFrame = world.getWorld();
 
 
         return finalWorldFrame;

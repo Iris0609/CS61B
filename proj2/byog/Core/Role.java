@@ -41,7 +41,7 @@ public abstract class Role implements Movement, Serializable {
 
     }
 
-    protected void MoveLeft() {
+    private void MoveLeft() {
         int[] pos = getCurrentPos();
         int curx = pos[0];
         int cury = posy;
@@ -51,7 +51,7 @@ public abstract class Role implements Movement, Serializable {
         updatePos(curx - 1, cury);
     }
 
-    protected void MoveRight() {
+    private void MoveRight() {
         int[] pos = getCurrentPos();
         int curx = pos[0];
         int cury = posy;
@@ -60,7 +60,8 @@ public abstract class Role implements Movement, Serializable {
         }
         updatePos(curx + 1, cury);
     }
-    protected void MoveUp() {
+
+    private void MoveUp() {
         int[] pos = getCurrentPos();
         int curx = pos[0];
         int cury = posy;
@@ -69,7 +70,8 @@ public abstract class Role implements Movement, Serializable {
         }
         updatePos(curx, cury + 1);
     }
-    protected void MoveDown() {
+
+    private void MoveDown() {
         int[] pos = getCurrentPos();
         int curx = pos[0];
         int cury = posy;

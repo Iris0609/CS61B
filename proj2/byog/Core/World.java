@@ -61,7 +61,6 @@ public class World implements Serializable{
         leaves = new LinkedList<>();
         leaves.add(root);
 
-
         for (int x = 0; x < wide; x += 1) {
             for (int y = 0; y < height; y += 1) {
                 world[x][y] = Tileset.NOTHING;
@@ -295,13 +294,29 @@ public class World implements Serializable{
         return pos;
     }
 
-    public void generatePlayer(){
+    private void generatePlayer(){
         int[] pos = initPlayer();
-        player = new Player(pos[0], pos[1], world);
-        world[pos[0]][pos[1]] = player.mark;
+        player = new Player(pos[0], pos[1], this);
+
     }
 
-    public void generateDoor(){
+    protected Player getPlayer(){
+        return this.player;
+    }
+
+    protected void clearPlayer(){
+        int[] cur = player.getCurrentPos();
+        world[cur[0]][cur[1]] = Tileset.FLOOR;
+
+    }
+
+    protected void updatePlayer(){
+        int[] cur = player.getCurrentPos();
+        world[cur[0]][cur[1]] = player.mark;
+
+    }
+
+    private void generateDoor(){
         int roomno = RANDOM.nextInt(leaves.size());
         Room room = leaves.get(roomno).room;
         winx = room.left + 1 + RANDOM.nextInt(room.right - room.left - 1);
@@ -314,7 +329,7 @@ public class World implements Serializable{
         return this.world;
     }
 
-    public TETile[][] generateWorld(){
+    protected TETile[][] generateWorld(){
         BSPSplit();
         generateRoom();
         generateHall();
